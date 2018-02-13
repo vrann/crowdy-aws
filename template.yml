@@ -7,6 +7,8 @@ Parameters:
   ProjectId:
     Type: String
     Description: CodeStar projectId used to associate new resources to team members
+  ESHost:
+    Type: String
 
 Resources:
   HelloWorld:
@@ -28,3 +30,58 @@ Resources:
           Properties:
             Path: /
             Method: post
+
+
+  GetProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: projectsLambda.get_project_by_id
+      Runtime: python3.6
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Environment:
+        Variables:
+          ELASTIC_HOST: !Ref ESHost
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /{projectId}
+            Method: get
+
+  CreateProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: projectsLambda.create_project
+      Runtime: python3.6
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Environment:
+        Variables:
+          ELASTIC_HOST: !Ref ESHost
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
+
+  DeleteProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: projectsLambda.delete_project
+      Runtime: python3.6
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Environment:
+        Variables:
+          ELASTIC_HOST: !Ref ESHost
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /{projectId}
+            Method: delete
