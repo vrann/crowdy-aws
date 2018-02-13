@@ -64,7 +64,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /
+            Path: /project
             Method: post
 
   DeleteProject:
