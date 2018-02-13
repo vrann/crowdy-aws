@@ -47,7 +47,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /{projectId}
+            Path: /project/{projectId}
             Method: get
   CreateProject:
     Type: AWS::Serverless::Function
@@ -82,5 +82,5 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /{projectId}
+            Path: /project/{projectId}
             Method: delete
