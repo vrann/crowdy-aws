@@ -12,7 +12,7 @@ class Project:
     """
 
     def __init__(self, project_id=None, **kwargs):
-        self.id = project_id or uuid.uuid4().int
+        self.id = project_id #or uuid.uuid4()
         self.title = ''
         self.description = ''
         self.technologies = set()

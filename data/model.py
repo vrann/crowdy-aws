@@ -35,12 +35,12 @@ class Model:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
         logger.info(project.as_json)
-        self.es.create(
+        project = self.es.create(
             index=PROJECTS_INDEX,
             doc_type=PROJECTS_DOC_TYPE,
-            id=project.id,
             body=project.as_json
         )
+        return project
 
     def get_project_json(self, project_id) -> str:
         """

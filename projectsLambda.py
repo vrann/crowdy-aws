@@ -32,8 +32,11 @@ def create_project(event, context):
     # gives Project class the responsibility for handling
     # data validation for the new Project, rather than
     # duplicating that code here.
-    model.store_project(Project(**data))
-
+    project = model.store_project(Project(**data))
+    return {
+        'statusCode': 200,
+        'body': json.dumps(project)
+    }
 
 
 def delete_project(event, context):
