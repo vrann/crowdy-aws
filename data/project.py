@@ -13,13 +13,15 @@ class Project:
 
     def __init__(self, project_id=None, **kwargs):
         self.id = project_id or uuid.uuid4().int
-        self.name = ''
-        self.git_link = ''
-        self.contributors = {}
-        self.hours_goal = 0
-        self.created_date = None
-        self.due_date = None
+        self.title = ''
+        self.description = ''
         self.technologies = set()
+        self.due_date = None
+        self.hours_goal = 0
+        self.git_link = ''
+        self.slack_link = ''
+        self.contributors = {}
+        self.created_date = None
 
         # initialize fields from passed kwargs
         for k, v in kwargs.items():
@@ -38,13 +40,15 @@ class Project:
     def as_json(self) -> str:
         return json.dumps({
             'id': self.id,
-            'name': self.name,
-            'git_link': self.git_link,
-            'contributors': self.contributors,
-            'created_date': self.created_date,
+            'title': self.title,
+            'description': self.description,
+            'technologies': self.technologies,
             'due_date': self.due_date,
             'hours_goal': self.hours_goal,
-            'technologies': self.technologies,
+            'git_link': self.git_link,
+            'slack_link': self.slack_link,
+            'contributors': self.contributors,
+            'created_date': self.created_date,
         })
 
     @classmethod

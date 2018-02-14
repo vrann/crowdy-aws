@@ -32,6 +32,9 @@ class Model:
         :param project:  Project
         :return: None
         """
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        logger.info(project.as_json)
         self.es.create(
             index=PROJECTS_INDEX,
             doc_type=PROJECTS_DOC_TYPE,
@@ -45,11 +48,6 @@ class Model:
         :param project_id: uuid
         :return: str
         """
-        logger = logging.getLogger()
-        logger.setLevel(logging.INFO)
-        logger.info(PROJECTS_INDEX)
-        logger.info(PROJECTS_DOC_TYPE)
-        logger.info(ELASTIC_HOST)
         try:
             result = self.es.get(
                 _source=True,
