@@ -3,7 +3,7 @@ import json
 from data.project import Project
 from data.contrib import Contributor
 from data.model import Model
-
+import logging
 
 def create_project(event, context):
     """
@@ -22,6 +22,10 @@ def create_project(event, context):
     :param context:
     :return: None
     """
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.info('got event{}'.format(event))
+
     data = json.loads(event['body'])
     #
     # gives Project class the responsibility for handling
@@ -38,6 +42,10 @@ def delete_project(event, context):
     :param context:
     :return:
     """
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.info('got event{}'.format(event))
+
     data = json.loads(event['body'])
     project_id = data['id']
     model.del_project(project_id)
@@ -51,6 +59,10 @@ def get_project_by_id(event, context):
     :param context:
     :return:
     """
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.info('got event{}'.format(event))
+
     data = json.loads(event['body'])
     project_id = data['id']
     return {
