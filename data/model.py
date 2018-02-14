@@ -3,6 +3,7 @@ import os
 
 from .project import Project
 from .contrib import Contributor
+import logging
 
 ELASTIC_HOST = os.environ['ELASTIC_HOST']
 PROJECTS_INDEX = 'projects'
@@ -40,12 +41,25 @@ class Model:
         :param project_id: uuid
         :return: str
         """
-        return self.es.get(
-            _source=True,
-            index=PROJECTS_INDEX,
-            doc_type=PROJECTS_DOC_TYPE,
-            id=project_id
-        )
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        logger.info(PROJECTS_INDEX)
+        logger.info(PROJECTS_DOC_TYPE)
+        logger.info(ELASTIC_HOST)
+        try:
+            result = self.es.get(
+                _source=True,
+                index=PROJECTS_INDEX,
+                doc_type=PROJECTS_DOC_TYPE,
+                id=project_id
+            )
+        except ConnectionError as e:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+
+        return result
 
     def get_project(self, project_id):
         """
