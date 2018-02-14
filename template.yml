@@ -9,7 +9,7 @@ Parameters:
     Description: CodeStar projectId used to associate new resources to team members
   ESHost:
     Type: String
-    Default: https://search-lebarzoi-e3gc63eez2gmzkriudubinc3sa.us-east-1.es.amazonaws.com
+    Default: https://search-lebarzoi-e3gc63eez2gmzkriudubinc3sa.us-east-1.es.amazonaws.com/
     Description: ElasticSearch instance
 
 Resources:

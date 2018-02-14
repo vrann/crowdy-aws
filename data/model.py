@@ -41,6 +41,7 @@ class Model:
         :return: str
         """
         return self.es.get(
+            _source=True,
             index=PROJECTS_INDEX,
             doc_type=PROJECTS_DOC_TYPE,
             id=project_id

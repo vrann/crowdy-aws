@@ -4,6 +4,7 @@ from data.project import Project
 from data.contrib import Contributor
 from data.model import Model
 import logging
+import os
 
 def create_project(event, context):
     """
@@ -61,6 +62,7 @@ def get_project_by_id(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     logger.info('got event{}'.format(event))
+    logger.info(os.environ['ELASTIC_HOST'])
 
     project_id = event['pathParameters']['projectId']
     return {
