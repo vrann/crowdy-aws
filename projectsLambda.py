@@ -46,8 +46,8 @@ def delete_project(event, context):
     logger.setLevel(logging.INFO)
     logger.info('got event{}'.format(event))
 
-    data = json.loads(event['body'])
-    project_id = data['id']
+    data = json.loads(event['pathParameters'])
+    project_id = data['projectId']
     model.del_project(project_id)
 
 
@@ -63,8 +63,8 @@ def get_project_by_id(event, context):
     logger.setLevel(logging.INFO)
     logger.info('got event{}'.format(event))
 
-    data = json.loads(event['body'])
-    project_id = data['id']
+    data = json.loads(event['pathParameters'])
+    project_id = data['projectId']
     return {
         'statusCode': 200,
         'body': json.dumps(model.get_project_json(project_id))
