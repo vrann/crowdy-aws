@@ -4,7 +4,7 @@ Contains Project class and associated code
 
 import json
 import uuid
-
+import datetime
 
 class Project:
     """
@@ -21,8 +21,8 @@ class Project:
         self.git_link = ''
         self.slack_link = ''
         self.contributors = {}
-        self.created_date = None
-
+        now = datetime.datetime.now()
+        self.created_date = now.strftime("%Y-%m-%d")
         # initialize fields from passed kwargs
         for k, v in kwargs.items():
             if hasattr(self, k):

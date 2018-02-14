@@ -35,7 +35,7 @@ class Model:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
         logger.info(project.as_json)
-        project = self.es.create(
+        project = self.es.index(
             index=PROJECTS_INDEX,
             doc_type=PROJECTS_DOC_TYPE,
             body=project.as_json
