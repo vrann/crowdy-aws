@@ -6,6 +6,7 @@ from .contrib import Contributor
 import logging
 
 ELASTIC_HOST = os.environ['ELASTIC_HOST']
+ELASTIC_PORT = 80
 PROJECTS_INDEX = 'projects'
 PROJECTS_DOC_TYPE = 'project'
 CONTRIB_INDEX = 'contributors'
@@ -17,7 +18,7 @@ class Model:
     Handles general data access and manipulation
     """
     def __init__(self):
-        self.es = es.Elasticsearch([{'host': ELASTIC_HOST}])
+        self.es = es.Elasticsearch([ELASTIC_HOST])
 
     # -----------------------------------------------------------------
     # PROJECT METHODS
