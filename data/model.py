@@ -18,7 +18,10 @@ class Model:
     Handles general data access and manipulation
     """
     def __init__(self):
-        self.es = es.Elasticsearch([ELASTIC_HOST])
+        self.es = es.Elasticsearch(
+            [ELASTIC_HOST],
+            verify_certs=False
+        )
 
     # -----------------------------------------------------------------
     # PROJECT METHODS
