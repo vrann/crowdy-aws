@@ -73,6 +73,21 @@ def get_project_by_id(event, context):
         'body': json.dumps(model.get_project_json(project_id))
     }
 
+def get_projects(event, context):
+    """
+    Retrieves project of passed id.
+    :param event:
+    :param context:
+    :return:
+    """
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.info('got event{}'.format(event))
+    return {
+        'statusCode': 200,
+        'body': json.dumps(model.get_projects())
+    }
+
 
 # ---------------------------------------------------------------------
 # Contributor lambdas

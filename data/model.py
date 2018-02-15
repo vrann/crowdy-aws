@@ -4,6 +4,7 @@ import os
 from .project import Project
 from .contrib import Contributor
 import logging
+import json
 
 ELASTIC_HOST = os.environ['ELASTIC_HOST']
 ELASTIC_PORT = 80
@@ -70,6 +71,39 @@ class Model:
         :return: Project
         """
         return Project.from_json(self.get_project_json(project_id))
+
+    def get_projects(self):
+        """
+        Gets a project as json from passed project id.
+        :param project_id: uuid
+        :return: str
+        """
+        try:
+            result = self.es.search(
+                _source=True,
+                index=PROJECTS_INDEX,
+                doc_type=PROJECTS_DOC_TYPE,
+                size=50
+            )
+        except ConnectionError as e:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+        #result = json.loads(result)
+        projects = []
+        if (result['hits']['total'] > 0):
+            for hit in result['hits']['hits']:
+                project = hit['_source']
+                project['id'] = hit['_id']
+
+                try:
+                    project = Project(**project)
+                except:
+                    continue
+                projects.append(project.as_json)
+        print(projects)
+        return projects
 
     def del_project(self, project_id):
         """
