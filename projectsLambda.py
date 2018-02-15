@@ -83,9 +83,14 @@ def get_projects(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     logger.info('got event{}'.format(event))
+
+    def obj_dict(obj):
+        return obj.__dict__
+
+    json_string = json.dumps(model.get_projects(), default=obj_dict)
     return {
         'statusCode': 200,
-        'body': json.dumps(model.get_projects())
+        'body': json_string
     }
 
 

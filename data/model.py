@@ -91,6 +91,7 @@ class Model:
             else:
                 print(e)
         #result = json.loads(result)
+
         projects = []
         if (result['hits']['total'] > 0):
             for hit in result['hits']['hits']:
@@ -101,8 +102,7 @@ class Model:
                     project = Project(**project)
                 except:
                     continue
-                projects.append(project.as_json)
-        print(projects)
+                projects.append(project)
         return projects
 
     def del_project(self, project_id):
