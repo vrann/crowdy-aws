@@ -51,20 +51,6 @@ class Project:
             'created_date': self.created_date,
         })
 
-    def toJSON(self) -> str:
-        return json.dumps({
-            'id': self.id,
-            'title': self.title,
-            'description': self.description,
-            'technologies': self.technologies,
-            'due_date': self.due_date,
-            'hours_goal': self.hours_goal,
-            'git_link': self.git_link,
-            'slack_link': self.slack_link,
-            'contributors': self.contributors,
-            'created_date': self.created_date,
-        })
-
     @classmethod
     def from_json(cls, json_s: str) -> 'Project':
         """
