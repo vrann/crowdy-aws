@@ -13,25 +13,16 @@ Parameters:
     Description: ElasticSearch instance
 
 Resources:
-  HelloWorld:
-    Type: AWS::Serverless::Function
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
     Properties:
-      Handler: index.handler
-      Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: get
-        PostEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: post
+      StageName: Prod
+      DefinitionBody:
+          'Fn::Transform':
+            Name: 'AWS::Include'
+            # Replace <bucket> with your bucket name
+            Parameters:
+              Location: swagger.yaml
   GetProject:
     Type: AWS::Serverless::Function
     Properties:
