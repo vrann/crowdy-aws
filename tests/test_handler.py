@@ -1,6 +1,5 @@
 import unittest
 import index
-import projectsLambda
 
 class TestHandlerCase(unittest.TestCase):
 
