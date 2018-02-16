@@ -13,7 +13,7 @@ Parameters:
     Description: ElasticSearch instance
 
 Resources:
-  ApiGatewayApi:
+  CrowdyGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
@@ -39,7 +39,7 @@ Resources:
                 uri:
                   Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetProjects.Arn}/invocations"
                 passthroughBehavior: when_no_match
-                httpMethod: POST
+                httpMethod: GET
                 type: aws_proxy
             options:
               consumes:
@@ -92,9 +92,9 @@ Resources:
     Properties:
       Handler: projectsLambda.get_projects
       Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
       Environment:
         Variables:
           ELASTIC_HOST: !Ref ESHost
@@ -104,6 +104,8 @@ Resources:
           Properties:
             Path: /projects
             Method: get
+            RestApiId:
+                Ref: CrowdyGatewayApi
 #  CreateProject:
 #    Type: AWS::Serverless::Function
 #    Properties:
