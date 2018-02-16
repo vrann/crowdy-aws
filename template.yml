@@ -36,7 +36,6 @@ Resources:
                 responses:
                   default:
                     statusCode: 200
-                # NOTE: ${LambdaFunction} must match the Lambda resourcename
                 uri:
                   Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetProjects.Arn}/invocations"
                 passthroughBehavior: when_no_match
@@ -71,72 +70,72 @@ Resources:
                 requestTemplates:
                   application/json: "{\"statusCode\": 200}"
                 type: mock
-  GetProject:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: projectsLambda.get_project_by_id
-      Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Environment:
-        Variables:
-          ELASTIC_HOST: !Ref ESHost
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /project/{projectId}
-            Method: get
-  GetProjects:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: projectsLambda.get_projects
-      Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Environment:
-        Variables:
-          ELASTIC_HOST: !Ref ESHost
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /projects
-            Method: get
-  CreateProject:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: projectsLambda.create_project
-      Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Environment:
-        Variables:
-          ELASTIC_HOST: !Ref ESHost
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /project
-            Method: post
-
-  DeleteProject:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: projectsLambda.delete_project
-      Runtime: python3.6
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Environment:
-        Variables:
-          ELASTIC_HOST: !Ref ESHost
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /project/{projectId}
-            Method: delete
+#  GetProject:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: projectsLambda.get_project_by_id
+#      Runtime: python3.6
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Environment:
+#        Variables:
+#          ELASTIC_HOST: !Ref ESHost
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /project/{projectId}
+#            Method: get
+#  GetProjects:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: projectsLambda.get_projects
+#      Runtime: python3.6
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Environment:
+#        Variables:
+#          ELASTIC_HOST: !Ref ESHost
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /projects
+#            Method: get
+#  CreateProject:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: projectsLambda.create_project
+#      Runtime: python3.6
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Environment:
+#        Variables:
+#          ELASTIC_HOST: !Ref ESHost
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /project
+#            Method: post
+#
+#  DeleteProject:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: projectsLambda.delete_project
+#      Runtime: python3.6
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Environment:
+#        Variables:
+#          ELASTIC_HOST: !Ref ESHost
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /project/{projectId}
+#            Method: delete
