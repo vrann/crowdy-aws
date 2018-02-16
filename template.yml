@@ -87,23 +87,23 @@ Resources:
 #          Properties:
 #            Path: /project/{projectId}
 #            Method: get
-#  GetProjects:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Handler: projectsLambda.get_projects
-#      Runtime: python3.6
-#      Role:
-#        Fn::ImportValue:
-#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-#      Environment:
-#        Variables:
-#          ELASTIC_HOST: !Ref ESHost
-#      Events:
-#        GetEvent:
-#          Type: Api
-#          Properties:
-#            Path: /projects
-#            Method: get
+  GetProjects:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: projectsLambda.get_projects
+      Runtime: python3.6
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Environment:
+        Variables:
+          ELASTIC_HOST: !Ref ESHost
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: get
 #  CreateProject:
 #    Type: AWS::Serverless::Function
 #    Properties:
